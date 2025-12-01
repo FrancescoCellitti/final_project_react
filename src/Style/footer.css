@@ -1,0 +1,23 @@
+.footer-netflix {
+  border-top: 1px solid #232323;
+}
+
+.footer-netflix a {
+  color: #808080;
+  text-decoration: none;
+}
+
+.footer-netflix a:hover {
+  color: #b3b3b3;
+  text-decoration: underline;
+}
+
+.footer-netflix .social a {
+  font-size: 1.25rem;
+}
+
+.footer-netflix .btn-outline-secondary {
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-border-color: #b3b3b3;
+  --bs-btn-hover-color: #ffffff;
+}
