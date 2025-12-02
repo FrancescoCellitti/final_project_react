@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <>
     <nav className="navbar navbar-expand-lg navbar-dark navbar-netflix px-3">
-      <a className="navbar-brand fw-bold me-3 brand-netflix " href="#">
+      <a className="navbar-brand fw-bold me-3 brand-netflix " href="">
         FraFlix
       </a>
 
@@ -23,8 +23,8 @@ export default function Header() {
 
       <div className="collapse navbar-collapse" id="navContent">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item"><a className="nav-link active" href="#">Home</a></li>
-          <li className="nav-item"><a className="nav-link" href="#">Film</a></li>
+          <li className="nav-item"><a className="nav-link active" href="http://localhost:5173/">Home</a></li>
+          <li className="nav-item"><a className="nav-link" href="">Film</a></li>
         </ul>
 
        {/*  <form className="d-none d-md-flex me-3 header-search">

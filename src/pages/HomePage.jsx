@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom"
 import Card from '../components/card';
 
 export default function HomePage() {
@@ -29,10 +30,14 @@ export default function HomePage() {
     <section className="container py-4">
       <h1 className="mb-3">I FILM</h1>
       <div className="row g-3">
-        {films.map((film) => (
-          <div key={film.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
-            <Card title={film.title} description={film.description} />
-          </div>
+        {films.map(film => (
+          <Link key={film.id} to={`/films/${film.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <div className="card">
+              <h3>{film.title}</h3>
+              <p>{film.description}</p>
+              {/* ...altri campi... */}
+            </div>
+          </Link>
         ))}
       </div>
     </section>
