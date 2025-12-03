@@ -1,0 +1,200 @@
+/* Netflix-like card styles */
+:root {
+  --nf-bg: #141414;
+  --nf-border: #2f2f2f;
+  --nf-border-hover: #3a3a3a;
+  --nf-text: #ffffff;
+  --nf-text-dim: #cfcfcf;
+  --nf-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Background stile Netflix + varianti grigie */
+.bg-netflix { background-color: var(--nf-bg) !important; }     /* #141414 */
+.bg-gray-900 { background-color: #0e0e0e !important; }
+.bg-gray-800 { background-color: #1a1a1a !important; }
+.bg-gray-700 { background-color: #222222 !important; }
+
+/* Testo chiaro per sfondi scuri */
+.text-netflix { color: var(--nf-text) !important; }             /* #ffffff */
+.text-gray    { color: var(--nf-text-dim) !important; }         /* #cfcfcf */
+
+/* BEM structure (preferred) */
+.nf-card {
+  position: relative;
+  /* width: 280px;  */
+  max-width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--nf-bg);
+  border: 1px solid var(--nf-border);
+  transform-origin: center;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, filter 220ms ease;
+  color: var(--nf-text);
+}
+
+.nf-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 16px 32px var(--nf-shadow);
+  border-color: var(--nf-border-hover);
+  filter: saturate(1.08);
+}
+
+.nf-card__poster {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 100% at 100% 0%, #2b2b2b 0%, #1a1a1a 45%, #0e0e0e 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+.nf-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
+  pointer-events: none;
+}
+
+.nf-card__content {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+}
+
+.nf-card__title {
+  margin: 0 0 6px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.nf-card__description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--nf-text-dim);
+  line-height: 1.3;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 220ms ease, opacity 220ms ease;
+}
+
+.nf-card:hover .nf-card__description,
+.nf-card:focus-within .nf-card__description {
+  max-height: 4.8em;
+  opacity: 1;
+}
+
+.nf-card__play {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 0.95rem;
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease, background 220ms ease;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
+.nf-card:hover .nf-card__play,
+.nf-card:focus-within .nf-card__play {
+  transform: translateY(0);
+  opacity: 1;
+  background: rgba(255,255,255,0.22);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nf-card,
+  .nf-card__description,
+  .nf-card__play {
+    transition: none !important;
+  }
+}
+
+/* Bootstrap compatibility:
+   se mantieni il markup .card/.card-body, usa .card.nf-card come container */
+.card.nf-card {
+  position: relative;
+  width: 280px;
+  max-width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--nf-bg) !important;
+  border: 1px solid var(--nf-border) !important;
+  color: var(--nf-text) !important;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, filter 220ms ease;
+  padding: 0; /* rimuove padding di Bootstrap per far spazio al poster */
+}
+
+.card.nf-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 16px 32px var(--nf-shadow);
+  border-color: var(--nf-border-hover) !important;
+  filter: saturate(1.08);
+}
+
+/* Poster come background del container .card.nf-card:
+   imposta style={{ backgroundImage: 'url(...)' }} sul wrapper o via classe */
+.card.nf-card {
+  background-position: center;
+  background-size: cover;
+}
+
+/* Overlay gradiente sopra il poster */
+.card.nf-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
+  pointer-events: none;
+}
+
+/* Contenuti */
+.card.nf-card .card-body {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 0;
+  z-index: 2;
+  background: transparent;
+}
+
+.card.nf-card .card-title {
+  margin: 0 0 6px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.card.nf-card .card-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--nf-text-dim) !important;
+  line-height: 1.3;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 220ms ease, opacity 220ms ease;
+}
+
+.card.nf-card:hover .card-text,
+.card.nf-card:focus-within .card-text {
+  max-height: 4.8em;
+  opacity: 1;
+}

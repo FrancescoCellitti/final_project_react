@@ -1,11 +1,22 @@
 import React from 'react';
+import '../Style/card.css';
 
-export default function Card({ title = 'Titolo', description = 'Descrizione della card.' }) {
+export default function Card({
+  title = 'Titolo',
+  description = 'Descrizione della card.',
+  poster, // URL del poster (opzionale)
+}) {
   return (
-    <div className="card bg-dark text-white border-secondary" style={{ maxWidth: 360 }}>
-      <div className="card-body">
-        <h5 className="card-title mb-2">{title}</h5>
-        <p className="card-text text-secondary mb-0">{description}</p>
+    <div className="nf-card" tabIndex={0}>
+      <div
+        className="nf-card__poster"
+        style={poster ? { backgroundImage: `url(${poster})` } : undefined}
+      />
+      <div className="nf-card__gradient" />
+
+      <div className="nf-card__content">
+        <h5 className="nf-card__title">{title}</h5>
+        <p className="nf-card__description">{description}</p>
       </div>
     </div>
   );

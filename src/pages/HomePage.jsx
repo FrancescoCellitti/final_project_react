@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from "react-router-dom"
-import Card from '../components/card';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import Card from "../components/card";
 
 export default function HomePage() {
   const [films, setFilms] = useState([]);
@@ -21,25 +21,33 @@ export default function HomePage() {
       }
     };
     fetchFilms();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (loading) return <div className="container py-4">Caricamento...</div>;
 
   return (
-    <section className="container py-4">
-      <h1 className="mb-3">I FILM</h1>
-      <div className="row g-3">
-        {films.map(film => (
-          <Link key={film.id} to={`/films/${film.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="card">
-              <h3>{film.title}</h3>
-              <p>{film.description}</p>
-              {/* ...altri campi... */}
+    <div className="bg-netflix text-netflix min-vh-100">
+      <section className="container py-4">
+        <h1 className="mb-3 text-danger">I FILM</h1>
+        <div className="row g-5">
+          {films.map((film) => (
+            <div className="col-12 col-sm-6 col-md-4" key={film.id}>
+              <Link
+                to={`/films/${film.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Card
+                  title={film.title || film.name}
+                  description={film.overview || film.description || ""}
+                />
+              </Link>
             </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
