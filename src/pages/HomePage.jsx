@@ -7,12 +7,50 @@ export default function HomePage() {
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  console.log("VITE URl= ", import.meta.env.VITE_API_URL);
   useEffect(() => {
+  let cancelled = false;
+
+  const fetchFilms = async () => {
+    const url = import.meta.env.VITE_API_URL;
+    console.log("VITE_API_URL =", url);
+
+    try {
+      setLoading(true);
+
+      const res = await axios.get(url); // <-- risposta completa
+      console.log("HTTP status =", res.status);
+      console.log("isArray =", Array.isArray(res.data));
+      console.log("data preview =", res.data);
+
+      if (!cancelled) setFilms(res.data);
+    } catch (err) {
+      console.error("FETCH ERROR:", err);
+    } finally {
+      if (!cancelled) setLoading(false);
+    }
+  };
+
+  fetchFilms();
+  return () => {
+    cancelled = true;
+  };
+}, []);
+
+  /* useEffect(() => {
     let cancelled = false;
     const fetchFilms = async () => {
       try {
         setLoading(true);
         const { data } = await axios.get(import.meta.env.VITE_API_URL);
+        console.log("HTTP status =", res.status);
+        console.log(
+          "data type =",
+          typeof res.data,
+          "isArray =",
+          Array.isArray(res.data)
+        );
+        console.log("data preview =", res.data);
         if (!cancelled) setFilms(data);
       } catch (err) {
         console.error(err);
@@ -24,7 +62,7 @@ export default function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, []); */
 
   if (loading) return <div className="container py-4">Caricamento...</div>;
 
